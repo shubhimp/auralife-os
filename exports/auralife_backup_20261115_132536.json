@@ -1,0 +1,197 @@
+{
+  "exported_at": "2026-11-15T13:25:36.966732",
+  "created_by": "Shubhi Mathur",
+  "profile": {
+    "name": "Shubhi Mathur",
+    "title": "Software Creator & Product Innovator",
+    "monthly_budget": 30000.0,
+    "focus_goal_minutes": 150,
+    "pomodoro_work_min": 25,
+    "pomodoro_break_min": 5,
+    "theme": "Dark Modern"
+  },
+  "tasks": [
+    {
+      "id": "6ad62d71",
+      "title": "Review AuraLife Architecture & Design",
+      "description": "Finalize modern UI layout, database schemas, and analytics engine",
+      "category": "Project",
+      "priority": "High",
+      "due_date": "2026-11-16",
+      "completed": true,
+      "completed_at": "2026-11-15T13:25:36.957757",
+      "created_at": "2026-11-15T13:25:36.958755"
+    },
+    {
+      "id": "272712da",
+      "title": "Python Data Structures & Algorithms Practice",
+      "description": "Solve 3 graph traversal problems and optimize space complexity",
+      "category": "Study",
+      "priority": "High",
+      "due_date": "2026-11-17",
+      "completed": false,
+      "completed_at": null,
+      "created_at": "2026-11-15T13:25:36.958755"
+    },
+    {
+      "id": "146845bf",
+      "title": "Prepare Product Portfolio Showcase",
+      "description": "Document system design, key accomplishments, and interactive demos",
+      "category": "Work",
+      "priority": "Medium",
+      "due_date": "2026-11-19",
+      "completed": false,
+      "completed_at": null,
+      "created_at": "2026-11-15T13:25:36.958755"
+    },
+    {
+      "id": "255714c0",
+      "title": "Read 2 Chapters of Clean Architecture",
+      "description": "Focus on dependency inversion and domain-driven design principles",
+      "category": "Study",
+      "priority": "Low",
+      "due_date": "2026-11-20",
+      "completed": false,
+      "completed_at": null,
+      "created_at": "2026-11-15T13:25:36.958755"
+    },
+    {
+      "id": "f6a269a9",
+      "title": "Evening 5K Run & Mindfulness",
+      "description": "Maintain daily health cadence and mental clarity",
+      "category": "Health",
+      "priority": "Medium",
+      "due_date": "2026-11-15",
+      "completed": true,
+      "completed_at": "2026-11-15T13:25:36.958755",
+      "created_at": "2026-11-15T13:25:36.958755"
+    }
+  ],
+  "habits": [
+    {
+      "id": "e8e90528",
+      "name": "Daily Python / Code Craft",
+      "category": "Coding",
+      "target_frequency": "Daily",
+      "logs": [
+        "2026-11-12",
+        "2026-11-13",
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "created_at": "2026-11-15"
+    },
+    {
+      "id": "60fa8297",
+      "name": "Read Tech Tech & Books (30m)",
+      "category": "Reading",
+      "target_frequency": "Daily",
+      "logs": [
+        "2026-11-13",
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "created_at": "2026-11-15"
+    },
+    {
+      "id": "2d1a3561",
+      "name": "Drink 3L Water & Stay Hydrated",
+      "category": "Wellness",
+      "target_frequency": "Daily",
+      "logs": [
+        "2026-11-12",
+        "2026-11-13",
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "created_at": "2026-11-15"
+    },
+    {
+      "id": "afadc124",
+      "name": "Morning Meditation & Goal Review",
+      "category": "Focus",
+      "target_frequency": "Daily",
+      "logs": [
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "created_at": "2026-11-15"
+    },
+    {
+      "id": "898c5598",
+      "name": "Workout / Cardio Session",
+      "category": "Fitness",
+      "target_frequency": "Daily",
+      "logs": [
+        "2026-11-12",
+        "2026-11-14"
+      ],
+      "created_at": "2026-11-15"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "83aa92b0",
+      "title": "Cloud Server & API Credits",
+      "amount": 1450.0,
+      "category": "Tech",
+      "date": "2026-11-14",
+      "notes": "AI Model Inference testing"
+    },
+    {
+      "id": "7189ace4",
+      "title": "Specialty Coffee & Espresso Beans",
+      "amount": 650.0,
+      "category": "Food",
+      "date": "2026-11-15",
+      "notes": "Focus fuel for development sprints"
+    },
+    {
+      "id": "5cf52670",
+      "title": "Python System Design Book",
+      "amount": 1200.0,
+      "category": "Books",
+      "date": "2026-11-11",
+      "notes": "Hardcover edition"
+    },
+    {
+      "id": "79595a35",
+      "title": "High-Speed Fiber Internet Bill",
+      "amount": 1899.0,
+      "category": "Bills",
+      "date": "2026-11-09",
+      "notes": "Monthly home lab connectivity"
+    },
+    {
+      "id": "0840f572",
+      "title": "Team Lunch & Networking",
+      "amount": 1850.0,
+      "category": "Food",
+      "date": "2026-11-12",
+      "notes": "Weekend developer meetup"
+    }
+  ],
+  "notes": [
+    {
+      "id": "8d4b6203",
+      "title": "AuraLife Vision & Roadmap",
+      "content": "# AuraLife Command Center\nCreated by Shubhi Mathur.\n\nKey Goals:\n1. Deliver lightning-fast productivity tracking without external bloat.\n2. Enable deep focus with the integrated Pomodoro cycle.\n3. Visualize financial discipline and habit streaks with intuitive charts.\n4. Guarantee zero friction: runs everywhere with pure Python!",
+      "category": "Ideas",
+      "updated_at": "2026-11-15T13:25:36.958755"
+    },
+    {
+      "id": "f99bc9e7",
+      "title": "Favorite Python Design Patterns",
+      "content": "1. Factory Method for extensible object instantiation.\n2. Repository Pattern for decoupling data storage from business logic.\n3. Observer Pattern for reactive UI updates.\n4. Data classes for concise, readable domain models.",
+      "category": "Study",
+      "updated_at": "2026-11-15T13:25:36.958755"
+    },
+    {
+      "id": "03c8234d",
+      "title": "Daily Affirmations & Focus Mantra",
+      "content": "Precision, consistency, and relentless curiosity create extraordinary outcomes.",
+      "category": "Wellness",
+      "updated_at": "2026-11-15T13:25:36.958755"
+    }
+  ]
+}

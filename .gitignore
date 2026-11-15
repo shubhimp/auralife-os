@@ -1,0 +1,14 @@
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.tmp
+
+# Backups and temporary exports (optional)
+data/backups/
+
+# Environments & IDEs
+.vscode/
+.idea/
+*.swp
+.DS_Store

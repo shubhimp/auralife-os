@@ -1,0 +1,10 @@
+# AuraLife Dependencies
+# Author: Shubhi Mathur
+# 
+# AuraLife is built entirely on Python's robust Standard Library!
+# ZERO mandatory third-party dependencies are required to run.
+#
+# Optional enhancements (for future expansions):
+# requests>=2.31.0
+# rich>=13.7.0
+# matplotlib>=3.8.0
