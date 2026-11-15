@@ -1,0 +1,20 @@
+{
+  "python.defaultInterpreterPath": "C:\\Users\\admin\\Python311\\python.exe",
+  "python.testing.unittestArgs": [
+    "-v",
+    "-s",
+    "tests",
+    "-t",
+    "."
+  ],
+  "python.testing.unittestEnabled": true,
+  "python.testing.pytestEnabled": false,
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 4,
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#6366f1",
+    "statusBar.background": "#1e293b",
+    "statusBar.noFolderBackground": "#1e293b"
+  }
+}
