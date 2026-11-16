@@ -6,22 +6,28 @@
   <title>AuraLife — Shubhi Mathur's Command Center</title>
   <style>
     :root {
-      --bg-dark: #080B11;
-      --bg-card: rgba(18, 24, 38, 0.75);
-      --bg-card-hover: rgba(26, 34, 53, 0.85);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-focus: rgba(99, 102, 241, 0.5);
-      --primary: #6366f1;
-      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-      --primary-glow: 0 0 25px rgba(99, 102, 241, 0.4);
-      --success: #10b981;
-      --success-glow: 0 0 20px rgba(16, 185, 129, 0.35);
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --cyan: #06b6d4;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
+      --bg-page: #F8F9FA;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #FFFDF5;
+      --border-subtle: #E2E8F0;
+      --border-yellow: rgba(245, 158, 11, 0.35);
+      --border-focus: #F59E0B;
+      
+      --yellow-primary: #F59E0B;
+      --yellow-light: #FEF3C7;
+      --yellow-deep: #D97706;
+      --yellow-gradient: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #F59E0B 100%);
+      --yellow-glow: 0 4px 18px rgba(245, 158, 11, 0.32);
+      
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --cyan: #0EA5E9;
+      
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-dim: #94A3B8;
+      --text-on-yellow: #0F172A;
     }
 
     * {
@@ -32,11 +38,11 @@
     }
 
     body {
-      background-color: var(--bg-dark);
+      background-color: var(--bg-page);
       background-image: 
-        radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.18) 0px, transparent 45%),
-        radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.15) 0px, transparent 40%),
-        radial-gradient(circle at 50% 90%, rgba(6, 182, 212, 0.12) 0px, transparent 50%);
+        radial-gradient(circle at 10% 12%, rgba(245, 158, 11, 0.12) 0px, transparent 40%),
+        radial-gradient(circle at 90% 18%, rgba(251, 191, 36, 0.15) 0px, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(254, 243, 199, 0.45) 0px, transparent 50%);
       background-attachment: fixed;
       color: var(--text-main);
       min-height: 100vh;
@@ -56,9 +62,9 @@
       z-index: 9999;
     }
 
-    /* Top Navigation */
+    /* Top Navigation Header */
     header {
-      background: rgba(11, 15, 25, 0.85);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-subtle);
@@ -69,6 +75,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
     }
 
     .brand {
@@ -82,17 +89,17 @@
     }
 
     .avatar-badge {
-      background: var(--primary-gradient);
-      color: white;
-      font-weight: 800;
-      font-size: 1rem;
+      background: var(--yellow-gradient);
+      color: var(--text-on-yellow);
+      font-weight: 900;
+      font-size: 1.05rem;
       width: 44px;
       height: 44px;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: var(--primary-glow);
+      box-shadow: var(--yellow-glow);
     }
 
     .pulse-dot {
@@ -102,7 +109,7 @@
       width: 11px;
       height: 11px;
       background: var(--success);
-      border: 2px solid var(--bg-dark);
+      border: 2px solid #FFFFFF;
       border-radius: 50%;
       animation: pulse 2s infinite;
     }
@@ -115,33 +122,33 @@
 
     .brand-details h1 {
       font-size: 1.15rem;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: -0.3px;
       display: flex;
       align-items: center;
       gap: 6px;
+      color: var(--text-main);
     }
 
     .verified-icon {
-      color: #38bdf8;
-      font-size: 0.9rem;
+      color: var(--yellow-deep);
+      font-size: 0.95rem;
     }
 
     .creator-sub {
       font-size: 0.78rem;
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     /* Floating Pill Navigation */
     .nav-pill-box {
       display: flex;
       gap: 4px;
-      background: rgba(18, 24, 38, 0.9);
+      background: #F1F5F9;
       padding: 5px;
       border-radius: 12px;
       border: 1px solid var(--border-subtle);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .nav-btn {
@@ -156,18 +163,19 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.2s ease;
     }
 
     .nav-btn:hover {
-      color: white;
-      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.8);
     }
 
     .nav-btn.active {
-      color: white;
-      background: var(--primary-gradient);
-      box-shadow: var(--primary-glow);
+      color: var(--text-on-yellow);
+      background: var(--yellow-gradient);
+      box-shadow: var(--yellow-glow);
+      font-weight: 700;
     }
 
     .header-right {
@@ -177,13 +185,14 @@
     }
 
     .clock-badge {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-subtle);
-      padding: 6px 12px;
+      background: #FEF3C7;
+      border: 1px solid #FDE68A;
+      padding: 6px 14px;
       border-radius: 8px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.85rem;
-      color: #38bdf8;
+      font-weight: 700;
+      color: #B45309;
       letter-spacing: 0.5px;
     }
 
@@ -211,28 +220,17 @@
 
     /* Hero Banner */
     .hero-cockpit {
-      background: linear-gradient(135deg, rgba(26, 34, 53, 0.75) 0%, rgba(15, 21, 35, 0.95) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFFBEB 100%);
+      border: 1px solid #FDE68A;
       border-radius: 18px;
       padding: 1.75rem 2rem;
       margin-bottom: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
       position: relative;
       overflow: hidden;
-    }
-
-    .hero-cockpit::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -20%;
-      width: 140%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 60%);
-      pointer-events: none;
     }
 
     .hero-intro h2 {
@@ -240,9 +238,7 @@
       font-weight: 800;
       letter-spacing: -0.5px;
       margin-bottom: 0.4rem;
-      background: linear-gradient(90deg, #ffffff, #cbd5e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--text-main);
     }
 
     .hero-intro p {
@@ -253,14 +249,14 @@
     }
 
     .score-meter-card {
-      background: rgba(11, 15, 25, 0.7);
-      border: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      border: 1px solid #FDE68A;
       border-radius: 16px;
       padding: 1rem 1.5rem;
       display: flex;
       align-items: center;
       gap: 18px;
-      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
     }
 
     .score-dial {
@@ -280,7 +276,7 @@
       transform: translate(-50%, -50%);
       font-weight: 800;
       font-size: 1.15rem;
-      color: var(--success);
+      color: var(--yellow-deep);
     }
 
     /* KPI Grid */
@@ -293,21 +289,20 @@
 
     .kpi-card {
       background: var(--bg-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
       padding: 1.35rem;
       transition: all 0.25s ease;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
     }
 
     .kpi-card:hover {
       background: var(--bg-card-hover);
-      border-color: rgba(99, 102, 241, 0.35);
+      border-color: #FBBF24;
       transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.12);
     }
 
     .kpi-top {
@@ -322,12 +317,11 @@
       text-transform: uppercase;
       font-weight: 700;
       letter-spacing: 0.05em;
-      color: var(--text-muted);
+      color: var(--text-dim);
     }
 
     .kpi-icon {
-      font-size: 1.2rem;
-      opacity: 0.8;
+      font-size: 1.25rem;
     }
 
     .kpi-val {
@@ -335,14 +329,16 @@
       font-weight: 800;
       letter-spacing: -0.5px;
       margin-bottom: 0.3rem;
+      color: var(--text-main);
     }
 
     .kpi-sub {
       font-size: 0.82rem;
-      color: var(--text-dim);
+      color: var(--text-muted);
       display: flex;
       align-items: center;
       gap: 4px;
+      font-weight: 500;
     }
 
     /* Content Cards & Sections */
@@ -354,12 +350,10 @@
 
     .glass-card {
       background: var(--bg-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-subtle);
       border-radius: 18px;
       padding: 1.6rem;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
     }
 
     .card-header {
@@ -375,6 +369,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      color: var(--text-main);
     }
 
     /* Modern Inputs & Buttons */
@@ -386,9 +381,9 @@
     }
 
     .glow-input, .glow-select {
-      background: rgba(11, 15, 25, 0.8);
-      border: 1px solid var(--border-subtle);
-      color: white;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: var(--text-main);
       padding: 10px 14px;
       border-radius: 10px;
       font-size: 0.9rem;
@@ -397,8 +392,8 @@
     }
 
     .glow-input:focus, .glow-select:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 12px var(--primary-glow);
+      border-color: var(--yellow-primary);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
     }
 
     .glow-select {
@@ -406,29 +401,29 @@
     }
 
     .btn-glow {
-      background: var(--primary-gradient);
-      color: white;
+      background: var(--yellow-gradient);
+      color: var(--text-on-yellow);
       border: none;
       padding: 10px 20px;
       border-radius: 10px;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 0.88rem;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: var(--primary-glow);
+      box-shadow: var(--yellow-glow);
       transition: all 0.2s ease;
     }
 
     .btn-glow:hover {
       transform: translateY(-1px);
-      filter: brightness(1.1);
+      filter: brightness(1.05);
     }
 
     .btn-subtle {
-      background: rgba(255, 255, 255, 0.08);
-      color: white;
+      background: #F1F5F9;
+      color: var(--text-muted);
       border: 1px solid var(--border-subtle);
       padding: 8px 14px;
       border-radius: 8px;
@@ -439,12 +434,13 @@
     }
 
     .btn-subtle:hover {
-      background: rgba(255, 255, 255, 0.14);
+      background: #E2E8F0;
+      color: var(--text-main);
     }
 
     /* Task Item */
     .task-item {
-      background: rgba(14, 19, 31, 0.7);
+      background: #F8FAFC;
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 1rem 1.25rem;
@@ -456,8 +452,9 @@
     }
 
     .task-item:hover {
-      background: rgba(20, 27, 43, 0.85);
-      border-color: rgba(99, 102, 241, 0.3);
+      background: #FFFDF5;
+      border-color: #FDE68A;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.08);
     }
 
     .task-left {
@@ -471,12 +468,13 @@
       height: 22px;
       border-radius: 6px;
       cursor: pointer;
-      accent-color: var(--success);
+      accent-color: var(--yellow-primary);
     }
 
     .task-title-group h4 {
       font-size: 0.98rem;
       font-weight: 600;
+      color: var(--text-main);
       transition: all 0.2s;
     }
 
@@ -494,9 +492,9 @@
       letter-spacing: 0.04em;
     }
 
-    .badge-High { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
-    .badge-Medium { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-    .badge-Low { background: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+    .badge-High { background: #FEE2E2; color: #DC2626; border: 1px solid #FECACA; }
+    .badge-Medium { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+    .badge-Low { background: #E0F2FE; color: #0284C7; border: 1px solid #BAE6FD; }
 
     /* Habit Cards */
     .habit-grid {
@@ -506,7 +504,7 @@
     }
 
     .habit-card {
-      background: rgba(14, 19, 31, 0.7);
+      background: #F8FAFC;
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
       padding: 1.35rem;
@@ -518,14 +516,19 @@
     }
 
     .habit-card.checked {
-      background: rgba(16, 185, 129, 0.08);
-      border-color: rgba(16, 185, 129, 0.35);
+      background: #FFFBEB;
+      border-color: #FCD34D;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.08);
+    }
+
+    .habit-card h4 {
+      color: var(--text-main);
     }
 
     .habit-streak-badge {
       font-size: 0.9rem;
       font-weight: 800;
-      color: #fbbf24;
+      color: #D97706;
       display: flex;
       align-items: center;
       gap: 4px;
@@ -559,9 +562,7 @@
       font-weight: 800;
       font-variant-numeric: tabular-nums;
       letter-spacing: -2px;
-      background: linear-gradient(180deg, #ffffff, #cbd5e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--text-main);
     }
 
     .timer-tag {
@@ -574,7 +575,7 @@
 
     /* Progress bar */
     .progress-track {
-      background: rgba(255, 255, 255, 0.06);
+      background: #FEF3C7;
       height: 8px;
       border-radius: 4px;
       overflow: hidden;
@@ -583,7 +584,7 @@
 
     .progress-fill {
       height: 100%;
-      background: var(--primary-gradient);
+      background: var(--yellow-gradient);
       border-radius: 4px;
       transition: width 0.4s ease;
     }
@@ -596,7 +597,7 @@
       justify-content: space-between;
       color: var(--text-dim);
       font-size: 0.85rem;
-      background: rgba(11, 15, 25, 0.7);
+      background: #FFFFFF;
       margin-top: auto;
     }
 
@@ -621,7 +622,7 @@
       </div>
       <div class="brand-details">
         <h1>Shubhi Mathur <span class="verified-icon">✓</span></h1>
-        <div class="creator-sub">AuraLife Personal Command Cockpit</div>
+        <div class="creator-sub">AuraLife Command Center • White & Gold Edition</div>
       </div>
     </div>
 
@@ -654,15 +655,15 @@
         <div class="score-meter-card">
           <div class="score-dial">
             <svg width="68" height="68" viewBox="0 0 68 68">
-              <circle cx="34" cy="34" r="28" stroke="rgba(255,255,255,0.08)" stroke-width="6" fill="none" />
-              <circle id="scoreRing" cx="34" cy="34" r="28" stroke="var(--success)" stroke-width="6" fill="none"
+              <circle cx="34" cy="34" r="28" stroke="#FEF3C7" stroke-width="6" fill="none" />
+              <circle id="scoreRing" cx="34" cy="34" r="28" stroke="var(--yellow-primary)" stroke-width="6" fill="none"
                       stroke-dasharray="176" stroke-dashoffset="70" stroke-linecap="round" />
             </svg>
             <div class="score-dial-val" id="scoreVal">--</div>
           </div>
           <div>
-            <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Performance Score</div>
-            <div style="font-size:1.05rem; font-weight:700; color:white;" id="scoreTier">Productive Maestro</div>
+            <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-dim); font-weight:700;">Performance Score</div>
+            <div style="font-size:1.05rem; font-weight:800; color:var(--text-main);" id="scoreTier">Productive Maestro</div>
           </div>
         </div>
       </div>
@@ -711,7 +712,7 @@
         <div class="glass-card">
           <div class="card-header">
             <h3><span>📈</span> 7-Day Momentum & Consistency</h3>
-            <span style="font-size:0.8rem; color:var(--text-muted);">Points earned per day</span>
+            <span style="font-size:0.8rem; color:var(--text-dim);">Points earned per day</span>
           </div>
           <canvas id="velocityCanvas" style="width:100%; height:200px;"></canvas>
         </div>
@@ -732,7 +733,7 @@
       <div class="glass-card">
         <div class="card-header">
           <h3><span>📋</span> Action Matrix & Tasks</h3>
-          <span style="font-size:0.85rem; color:var(--text-muted);" id="taskCounterBadge">-- items</span>
+          <span style="font-size:0.85rem; color:var(--text-dim);" id="taskCounterBadge">-- items</span>
         </div>
 
         <div class="input-row">
@@ -793,7 +794,7 @@
         <div style="margin-bottom:1.5rem;">
           <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:4px;">
             <span>Monthly Budget Utilization</span>
-            <span id="budgetPctLabel">--%</span>
+            <span id="budgetPctLabel" style="font-weight:700; color:var(--yellow-deep);">--%</span>
           </div>
           <div class="progress-track">
             <div class="progress-fill" id="budgetTrackFill" style="width:0%;"></div>
@@ -840,14 +841,14 @@
 
         <div class="timer-ring-center">
           <svg width="270" height="270" viewBox="0 0 270 270">
-            <circle cx="135" cy="135" r="115" stroke="rgba(255,255,255,0.06)" stroke-width="12" fill="none" />
+            <circle cx="135" cy="135" r="115" stroke="#FEF3C7" stroke-width="12" fill="none" />
             <circle id="pomoRing" cx="135" cy="135" r="115" stroke="url(#pomoGrad)" stroke-width="12" fill="none"
                     stroke-dasharray="722" stroke-dashoffset="0" stroke-linecap="round"
                     transform="rotate(-90 135 135)" style="transition: stroke-dashoffset 1s linear;" />
             <defs>
               <linearGradient id="pomoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#6366f1" />
-                <stop offset="100%" stop-color="#ec4899" />
+                <stop offset="0%" stop-color="#F59E0B" />
+                <stop offset="100%" stop-color="#FBBF24" />
               </linearGradient>
             </defs>
           </svg>
@@ -864,7 +865,7 @@
         </div>
 
         <div style="font-size:0.85rem; color:var(--text-dim); margin-top:1.5rem;">
-          Completed Today: <strong style="color:var(--success);" id="pomoSprintsDone">2</strong> sessions (50 min deep work)
+          Completed Today: <strong style="color:var(--yellow-deep);" id="pomoSprintsDone">2</strong> sessions (50 min deep work)
         </div>
       </div>
     </div>
@@ -905,7 +906,7 @@
           ⚡ Export Full Snapshot Now
         </button>
 
-        <div id="exportStatusAlert" style="display:none; margin-top:1.5rem; text-align:left; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:12px; padding:1.25rem; font-size:0.9rem; color:#34d399;">
+        <div id="exportStatusAlert" style="display:none; margin-top:1.5rem; text-align:left; background:#FEF3C7; border:1px solid #FDE68A; border-radius:12px; padding:1.25rem; font-size:0.9rem; color:#B45309;">
           <!-- Result details -->
         </div>
       </div>
@@ -916,7 +917,7 @@
   <!-- Footer -->
   <footer>
     <div>AuraLife Command Center • Handcrafted for <strong>Shubhi Mathur</strong></div>
-    <div>100% Offline Capable • Pure Python Architecture</div>
+    <div>White & Yellow Edition • Pure Python Architecture</div>
   </footer>
 
   <script>
@@ -1062,8 +1063,8 @@
         catBox.innerHTML += `
           <div>
             <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:4px;">
-              <span>${cat}</span>
-              <span style="color:#cbd5e1; font-weight:600;">₹${amt.toLocaleString()} (${pct}%)</span>
+              <span style="font-weight:600; color:var(--text-main);">${cat}</span>
+              <span style="color:var(--text-muted); font-weight:600;">₹${amt.toLocaleString()} (${pct}%)</span>
             </div>
             <div class="progress-track" style="margin:0;">
               <div class="progress-fill" style="width:${pct}%;"></div>
@@ -1089,12 +1090,12 @@
             <div class="task-title-group ${t.completed ? 'completed' : ''}">
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">
                 <span class="badge badge-${t.priority}">${t.priority}</span>
-                <span style="font-size:0.75rem; color:var(--text-muted);">${t.category}</span>
+                <span style="font-size:0.75rem; color:var(--text-dim);">${t.category}</span>
               </div>
               <h4>${escapeHtml(t.title)}</h4>
             </div>
           </div>
-          <button class="btn-subtle" style="color:#f87171; border:none; padding:4px 8px;" onclick="deleteTask('${t.id}')">✕</button>
+          <button class="btn-subtle" style="color:#DC2626; border:none; padding:4px 8px; font-weight:bold;" onclick="deleteTask('${t.id}')">✕</button>
         `;
         taskBox.appendChild(div);
       });
@@ -1108,7 +1109,7 @@
         div.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:flex-start;">
             <div>
-              <span class="badge" style="background:rgba(255,255,255,0.06);">${h.category}</span>
+              <span class="badge" style="background:#FEF3C7; color:#B45309; border:1px solid #FDE68A;">${h.category}</span>
               <h4 style="font-size:1.05rem; margin-top:8px;">${escapeHtml(h.name)}</h4>
             </div>
             <div class="habit-streak-badge">
@@ -1116,7 +1117,7 @@
               <span>🔥</span>
             </div>
           </div>
-          <button class="btn-glow" style="${h.checked_today ? 'background:#10b981; box-shadow:0 0 15px rgba(16,185,129,0.4);' : 'background:rgba(255,255,255,0.08); box-shadow:none;'}"
+          <button class="btn-glow" style="${h.checked_today ? 'background:#F59E0B; color:#0F172A; box-shadow:0 3px 12px rgba(245,158,11,0.35);' : 'background:#F1F5F9; color:#475569; box-shadow:none;'}"
                   onclick="toggleHabit('${h.id}')">
             ${h.checked_today ? '✔ Completed Today' : '○ Check In Today'}
           </button>
@@ -1129,13 +1130,13 @@
       expBody.innerHTML = '';
       expenses.slice().reverse().forEach(e => {
         const tr = document.createElement('tr');
-        tr.style.borderBottom = '1px solid rgba(255,255,255,0.04)';
+        tr.style.borderBottom = '1px solid #F1F5F9';
         tr.innerHTML = `
           <td style="padding:10px; color:var(--text-dim); font-size:0.85rem;">${e.date || 'Today'}</td>
-          <td style="padding:10px; font-weight:600;">${escapeHtml(e.title)}</td>
-          <td style="padding:10px;"><span class="badge" style="background:rgba(255,255,255,0.06);">${e.category}</span></td>
-          <td style="padding:10px; color:#f87171; font-weight:700;">₹${parseFloat(e.amount).toFixed(2)}</td>
-          <td style="padding:10px;"><button class="btn-subtle" style="padding:2px 8px; font-size:0.75rem; color:#f87171;" onclick="deleteExpense('${e.id}')">Delete</button></td>
+          <td style="padding:10px; font-weight:600; color:var(--text-main);">${escapeHtml(e.title)}</td>
+          <td style="padding:10px;"><span class="badge" style="background:#FEF3C7; color:#B45309; border:1px solid #FDE68A;">${e.category}</span></td>
+          <td style="padding:10px; color:#DC2626; font-weight:700;">₹${parseFloat(e.amount).toFixed(2)}</td>
+          <td style="padding:10px;"><button class="btn-subtle" style="padding:2px 8px; font-size:0.75rem; color:#DC2626;" onclick="deleteExpense('${e.id}')">Delete</button></td>
         `;
         expBody.appendChild(tr);
       });
@@ -1149,9 +1150,9 @@
         div.style.padding = '1.25rem';
         div.innerHTML = `
           <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <span class="badge" style="background:rgba(99,102,241,0.2); color:#a5b4fc;">${n.category}</span>
+            <span class="badge" style="background:#FEF3C7; color:#B45309; border:1px solid #FDE68A;">${n.category}</span>
           </div>
-          <h4 style="font-size:1.05rem; margin-bottom:6px;">${escapeHtml(n.title)}</h4>
+          <h4 style="font-size:1.05rem; margin-bottom:6px; color:var(--text-main);">${escapeHtml(n.title)}</h4>
           <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.5;">${escapeHtml(n.content)}</p>
         `;
         notesBox.appendChild(div);
@@ -1186,10 +1187,10 @@
         const barHeight = Math.max(12, (d.total_points / maxPts) * (h - 60));
         const y = h - 35 - barHeight;
 
-        // Gradient
+        // Warm Yellow Gradient
         const grad = ctx.createLinearGradient(0, y, 0, y + barHeight);
-        grad.addColorStop(0, '#6366f1');
-        grad.addColorStop(1, '#ec4899');
+        grad.addColorStop(0, '#F59E0B');
+        grad.addColorStop(1, '#FCD34D');
 
         ctx.fillStyle = grad;
         ctx.beginPath();
@@ -1197,13 +1198,13 @@
         ctx.fill();
 
         // Label
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '12px sans-serif';
+        ctx.fillStyle = '#64748B';
+        ctx.font = '600 12px sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(d.label, x + barWidth / 2, h - 12);
 
         // Value
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#0F172A';
         ctx.font = 'bold 11px sans-serif';
         ctx.fillText(d.total_points, x + barWidth / 2, y - 6);
       });
@@ -1464,7 +1465,7 @@
       } catch (e) {}
     }
 
-    // Confetti System
+    // Confetti System (Yellow, Gold, Champagne, White)
     function shootConfetti() {
       const canvas = document.getElementById('confettiCanvas');
       if (!canvas) return;
@@ -1473,7 +1474,7 @@
       canvas.height = window.innerHeight;
 
       const particles = [];
-      const colors = ['#6366f1', '#a855f7', '#ec4899', '#10b981', '#fbbf24', '#06b6d4'];
+      const colors = ['#F59E0B', '#FBBF24', '#FCD34D', '#FEF08A', '#EAB308', '#FFFFFF', '#CBD5E1', '#D97706'];
 
       for (let i = 0; i < 60; i++) {
         particles.push({
