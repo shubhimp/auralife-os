@@ -3,52 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AuraLife — Shubhi Mathur's Command Center</title>
+  <title>AuraLife OS // Shubhi Mathur's Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-page: #F8F9FA;
-      --bg-card: #FFFFFF;
-      --bg-card-hover: #FFFDF5;
+      --bg-base: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-surface-elevated: #FFFFFF;
       --border-subtle: #E2E8F0;
-      --border-yellow: rgba(245, 158, 11, 0.35);
+      --border-tech: rgba(245, 158, 11, 0.4);
       --border-focus: #F59E0B;
       
-      --yellow-primary: #F59E0B;
-      --yellow-light: #FEF3C7;
-      --yellow-deep: #D97706;
-      --yellow-gradient: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #F59E0B 100%);
-      --yellow-glow: 0 4px 18px rgba(245, 158, 11, 0.32);
+      --yellow-neon: #F59E0B;
+      --yellow-bright: #FBBF24;
+      --yellow-glow: 0 0 25px rgba(245, 158, 11, 0.45);
+      --yellow-laser: #D97706;
+      --yellow-soft: #FEF3C7;
+      --yellow-cyber-grad: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #F59E0B 100%);
       
-      --success: #10B981;
-      --warning: #F59E0B;
-      --danger: #EF4444;
+      --emerald: #10B981;
+      --crimson: #EF4444;
       --cyan: #0EA5E9;
+      --slate-dark: #090D16;
+      --slate-body: #1E293B;
+      --slate-muted: #64748B;
+      --slate-dim: #94A3B8;
       
-      --text-main: #0F172A;
-      --text-muted: #475569;
-      --text-dim: #94A3B8;
-      --text-on-yellow: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", Helvetica, sans-serif;
+      font-family: var(--font-sans);
     }
 
     body {
-      background-color: var(--bg-page);
+      background-color: var(--bg-base);
+      /* Cyber Tech Micro-Grid */
       background-image: 
-        radial-gradient(circle at 10% 12%, rgba(245, 158, 11, 0.12) 0px, transparent 40%),
-        radial-gradient(circle at 90% 18%, rgba(251, 191, 36, 0.15) 0px, transparent 45%),
-        radial-gradient(circle at 50% 90%, rgba(254, 243, 199, 0.45) 0px, transparent 50%);
+        radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px),
+        radial-gradient(circle at 10% 15%, rgba(245, 158, 11, 0.15) 0px, transparent 35%),
+        radial-gradient(circle at 90% 25%, rgba(251, 191, 36, 0.18) 0px, transparent 40%),
+        radial-gradient(circle at 50% 95%, rgba(254, 243, 199, 0.6) 0px, transparent 45%);
+      background-size: 28px 28px, 100% 100%, 100% 100%, 100% 100%;
       background-attachment: fixed;
-      color: var(--text-main);
+      color: var(--slate-body);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Tech Spotlight Follower */
+    #ambientGlowFollower {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: transform 0.08s ease-out;
     }
 
     /* Confetti Canvas */
@@ -62,154 +86,185 @@
       z-index: 9999;
     }
 
-    /* Top Navigation Header */
+    /* Top Navigation HUD */
     header {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 0.85rem 2rem;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+      padding: 0.85rem 2.2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .avatar-wrapper {
-      position: relative;
-    }
-
-    .avatar-badge {
-      background: var(--yellow-gradient);
-      color: var(--text-on-yellow);
-      font-weight: 900;
-      font-size: 1.05rem;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--yellow-glow);
-    }
-
-    .pulse-dot {
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-      width: 11px;
-      height: 11px;
-      background: var(--success);
-      border: 2px solid #FFFFFF;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
-    .brand-details h1 {
-      font-size: 1.15rem;
-      font-weight: 800;
-      letter-spacing: -0.3px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-main);
-    }
-
-    .verified-icon {
-      color: var(--yellow-deep);
-      font-size: 0.95rem;
-    }
-
-    .creator-sub {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    /* Floating Pill Navigation */
-    .nav-pill-box {
-      display: flex;
-      gap: 4px;
-      background: #F1F5F9;
-      padding: 5px;
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .nav-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      border-radius: 9px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.8);
-    }
-
-    .nav-btn.active {
-      color: var(--text-on-yellow);
-      background: var(--yellow-gradient);
-      box-shadow: var(--yellow-glow);
-      font-weight: 700;
-    }
-
-    .header-right {
+    .brand-hud {
       display: flex;
       align-items: center;
       gap: 16px;
     }
 
-    .clock-badge {
+    .brand-icon-hex {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      background: var(--yellow-cyber-grad);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.15rem;
+      color: var(--slate-dark);
+      box-shadow: var(--yellow-glow);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transform: perspective(600px) rotateY(-5deg);
+      transition: transform 0.3s ease;
+    }
+
+    .brand-icon-hex:hover {
+      transform: perspective(600px) rotateY(0deg) scale(1.05);
+    }
+
+    .status-orb-live {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      width: 12px;
+      height: 12px;
+      background: var(--emerald);
+      border: 2.5px solid #FFFFFF;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+      animation: livePulse 2s infinite;
+    }
+
+    @keyframes livePulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 9px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .brand-telemetry h1 {
+      font-size: 1.18rem;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--slate-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hud-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
       background: #FEF3C7;
+      color: #92400E;
       border: 1px solid #FDE68A;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      padding: 2px 7px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-telemetry .sub {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      color: var(--slate-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* Cyber Navigation Pillbar */
+    .nav-hud-rack {
+      display: flex;
+      gap: 5px;
+      background: #F1F5F9;
+      padding: 5px;
+      border-radius: 14px;
+      border: 1px solid #E2E8F0;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-hud-btn {
+      background: transparent;
+      border: none;
+      color: var(--slate-muted);
+      padding: 8px 18px;
       font-size: 0.85rem;
       font-weight: 700;
-      color: #B45309;
-      letter-spacing: 0.5px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .nav-hud-btn:hover {
+      color: var(--slate-dark);
+      background: rgba(255, 255, 255, 0.8);
+      transform: translateY(-1px);
+    }
+
+    .nav-hud-btn.active {
+      color: var(--slate-dark);
+      background: var(--yellow-cyber-grad);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+    }
+
+    .header-telemetry {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hud-ping-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #92400E;
+      background: #FEF3C7;
+      border: 1px solid #FDE68A;
+      padding: 5px 12px;
+      border-radius: 8px;
+    }
+
+    .clock-stream {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      color: var(--slate-dark);
+      padding: 6px 14px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
     }
 
     /* Main Container */
     main {
       flex: 1;
-      max-width: 1240px;
+      max-width: 1260px;
       width: 100%;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: 2.2rem 1.6rem;
+      position: relative;
+      z-index: 2;
     }
 
     .tab-content {
       display: none;
       opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translateY(10px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .tab-content.active {
@@ -218,427 +273,527 @@
       transform: translateY(0);
     }
 
-    /* Hero Banner */
-    .hero-cockpit {
-      background: linear-gradient(135deg, #FFFFFF 0%, #FFFBEB 100%);
+    /* Holographic Hero Banner */
+    .hero-hologram {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 251, 235, 0.92) 100%);
+      backdrop-filter: blur(20px);
       border: 1px solid #FDE68A;
-      border-radius: 18px;
-      padding: 1.75rem 2rem;
+      border-radius: 22px;
+      padding: 2rem 2.4rem;
       margin-bottom: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 12px 35px -5px rgba(245, 158, 11, 0.1), 0 4px 12px rgba(0, 0, 0, 0.02);
       position: relative;
       overflow: hidden;
     }
 
-    .hero-intro h2 {
-      font-size: 1.75rem;
+    /* Cyber Corner Notches */
+    .hero-hologram::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 18px;
+      height: 18px;
+      border-top: 3px solid var(--yellow-neon);
+      border-left: 3px solid var(--yellow-neon);
+      border-top-left-radius: 6px;
+    }
+
+    .hero-hologram::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 18px;
+      height: 18px;
+      border-bottom: 3px solid var(--yellow-neon);
+      border-right: 3px solid var(--yellow-neon);
+      border-bottom-right-radius: 6px;
+    }
+
+    .hero-hologram .intro h2 {
+      font-size: 1.85rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.6px;
       margin-bottom: 0.4rem;
-      color: var(--text-main);
+      color: var(--slate-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .hero-intro p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      max-width: 620px;
-      line-height: 1.5;
+    .hero-hologram .intro p {
+      color: var(--slate-muted);
+      font-size: 0.96rem;
+      max-width: 640px;
+      line-height: 1.55;
     }
 
-    .score-meter-card {
+    .score-hologram-card {
       background: #FFFFFF;
       border: 1px solid #FDE68A;
-      border-radius: 16px;
-      padding: 1rem 1.5rem;
+      border-radius: 18px;
+      padding: 1.1rem 1.6rem;
       display: flex;
       align-items: center;
       gap: 18px;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
-    }
-
-    .score-dial {
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.12);
       position: relative;
-      width: 68px;
-      height: 68px;
     }
 
-    .score-dial svg {
+    .score-dial-tech {
+      position: relative;
+      width: 72px;
+      height: 72px;
+    }
+
+    .score-dial-tech svg {
       transform: rotate(-90deg);
     }
 
-    .score-dial-val {
+    .score-dial-tech .val {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      font-family: var(--font-mono);
       font-weight: 800;
-      font-size: 1.15rem;
-      color: var(--yellow-deep);
+      font-size: 1.25rem;
+      color: var(--yellow-laser);
     }
 
-    /* KPI Grid */
-    .kpi-grid {
+    /* High-Tech KPI Cards */
+    .kpi-deck {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 2rem;
+      gap: 1.35rem;
+      margin-bottom: 2.2rem;
     }
 
-    .kpi-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 1.35rem;
-      transition: all 0.25s ease;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
-    }
-
-    .kpi-card:hover {
-      background: var(--bg-card-hover);
-      border-color: #FBBF24;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.12);
-    }
-
-    .kpi-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-    }
-
-    .kpi-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: var(--text-dim);
-    }
-
-    .kpi-icon {
-      font-size: 1.25rem;
-    }
-
-    .kpi-val {
-      font-size: 1.9rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 0.3rem;
-      color: var(--text-main);
-    }
-
-    .kpi-sub {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-weight: 500;
-    }
-
-    /* Content Cards & Sections */
-    .dashboard-layout {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .glass-card {
-      background: var(--bg-card);
+    .cyber-card {
+      background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: 18px;
-      padding: 1.6rem;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
+      padding: 1.45rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.02);
     }
 
-    .card-header {
+    .cyber-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: transparent;
+      transition: background 0.3s;
+    }
+
+    .cyber-card:hover {
+      background: var(--bg-card-hover);
+      border-color: #FCD34D;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -4px rgba(245, 158, 11, 0.15);
+    }
+
+    .cyber-card:hover::before {
+      background: var(--yellow-cyber-grad);
+    }
+
+    .cyber-card .top-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.4rem;
+      margin-bottom: 0.65rem;
     }
 
-    .card-header h3 {
-      font-size: 1.15rem;
+    .cyber-card .mono-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
       font-weight: 700;
+      color: var(--slate-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cyber-card .val {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      margin-bottom: 0.3rem;
+      color: var(--slate-dark);
+      font-family: var(--font-mono);
+    }
+
+    .cyber-card .sub-tech {
+      font-size: 0.82rem;
+      color: var(--slate-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+    }
+
+    /* Two-Column Tech Layout */
+    .cockpit-split {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.6rem;
+    }
+
+    .tech-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 1.75rem;
+      box-shadow: 0 6px 25px rgba(15, 23, 42, 0.03);
+      position: relative;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #F1F5F9;
+      padding-bottom: 0.85rem;
+    }
+
+    .panel-header h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 8px;
-      color: var(--text-main);
+      color: var(--slate-dark);
     }
 
-    /* Modern Inputs & Buttons */
-    .input-row {
+    /* Cyber Inputs and Action Buttons */
+    .hud-input-row {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.5rem;
     }
 
-    .glow-input, .glow-select {
+    .cyber-input, .cyber-select {
       background: #FFFFFF;
-      border: 1px solid #CBD5E1;
-      color: var(--text-main);
-      padding: 10px 14px;
-      border-radius: 10px;
+      border: 1.5px solid #CBD5E1;
+      color: var(--slate-dark);
+      padding: 11px 16px;
+      border-radius: 12px;
       font-size: 0.9rem;
+      font-weight: 500;
       outline: none;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
 
-    .glow-input:focus, .glow-select:focus {
-      border-color: var(--yellow-primary);
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    .cyber-input:focus, .cyber-select:focus {
+      border-color: var(--yellow-neon);
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
     }
 
-    .glow-select {
-      cursor: pointer;
-    }
-
-    .btn-glow {
-      background: var(--yellow-gradient);
-      color: var(--text-on-yellow);
+    .btn-laser {
+      background: var(--yellow-cyber-grad);
+      color: var(--slate-dark);
       border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
+      padding: 11px 22px;
+      border-radius: 12px;
       font-weight: 800;
       font-size: 0.88rem;
+      letter-spacing: 0.02em;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       box-shadow: var(--yellow-glow);
-      transition: all 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
 
-    .btn-glow:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
+    .btn-laser::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 20%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.5);
+      transform: rotate(30deg);
+      transition: all 0.6s ease;
     }
 
-    .btn-subtle {
+    .btn-laser:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.55);
+    }
+
+    .btn-laser:hover::after {
+      left: 140%;
+    }
+
+    .btn-ghost-tech {
       background: #F1F5F9;
-      color: var(--text-muted);
+      color: var(--slate-muted);
       border: 1px solid var(--border-subtle);
-      padding: 8px 14px;
-      border-radius: 8px;
+      padding: 9px 16px;
+      border-radius: 10px;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .btn-subtle:hover {
+    .btn-ghost-tech:hover {
       background: #E2E8F0;
-      color: var(--text-main);
+      color: var(--slate-dark);
     }
 
-    /* Task Item */
-    .task-item {
+    /* Cyber Task Rows */
+    .task-cyber-item {
       background: #F8FAFC;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 10px;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 1.05rem 1.35rem;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      position: relative;
     }
 
-    .task-item:hover {
+    .task-cyber-item:hover {
       background: #FFFDF5;
       border-color: #FDE68A;
-      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.08);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+      transform: translateX(4px);
     }
 
-    .task-left {
+    .task-left-hud {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
-    .custom-check {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
+    .neon-check {
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
       cursor: pointer;
-      accent-color: var(--yellow-primary);
+      accent-color: var(--yellow-neon);
     }
 
-    .task-title-group h4 {
-      font-size: 0.98rem;
-      font-weight: 600;
-      color: var(--text-main);
+    .task-label-hud h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--slate-dark);
       transition: all 0.2s;
     }
 
-    .task-title-group.completed h4 {
+    .task-label-hud.done h4 {
       text-decoration: line-through;
-      color: var(--text-dim);
+      color: var(--slate-dim);
     }
 
-    .badge {
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 8px;
+    .badge-cyber {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 9px;
       border-radius: 6px;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
 
     .badge-High { background: #FEE2E2; color: #DC2626; border: 1px solid #FECACA; }
     .badge-Medium { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
     .badge-Low { background: #E0F2FE; color: #0284C7; border: 1px solid #BAE6FD; }
 
-    /* Habit Cards */
-    .habit-grid {
+    /* Habit Cyber Grid */
+    .habit-cyber-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.35rem;
     }
 
-    .habit-card {
+    .habit-cyber-card {
       background: #F8FAFC;
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 1.35rem;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 1.45rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 1.2rem;
-      transition: all 0.25s ease;
+      gap: 1.35rem;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .habit-card.checked {
+    .habit-cyber-card.checked {
       background: #FFFBEB;
       border-color: #FCD34D;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.08);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.12);
     }
 
-    .habit-card h4 {
-      color: var(--text-main);
-    }
-
-    .habit-streak-badge {
-      font-size: 0.9rem;
+    .streak-radar-tag {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
       font-weight: 800;
-      color: #D97706;
+      color: var(--yellow-laser);
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
+      background: #FFFFFF;
+      border: 1px solid #FDE68A;
+      padding: 4px 10px;
+      border-radius: 8px;
     }
 
-    /* Pomodoro Timer Modern Visual */
-    .pomo-shell {
-      max-width: 580px;
+    /* Radar Pomodoro Cockpit */
+    .radar-pomo-box {
+      max-width: 600px;
       margin: 0 auto;
       text-align: center;
-      padding: 1rem 0;
+      padding: 1.5rem 0;
     }
 
-    .timer-ring-center {
+    .radar-ring-wrapper {
       position: relative;
-      width: 270px;
-      height: 270px;
-      margin: 1.5rem auto;
+      width: 280px;
+      height: 280px;
+      margin: 1.8rem auto;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .timer-digits {
+    /* Outer Holographic Radar Sweep */
+    .radar-sweep-disk {
+      position: absolute;
+      width: 270px;
+      height: 270px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(245, 158, 11, 0.4);
+      animation: rotateRadar 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotateRadar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .radar-digits {
       position: absolute;
       text-align: center;
     }
 
-    .timer-clock {
-      font-size: 4rem;
+    .radar-clock-text {
+      font-family: var(--font-mono);
+      font-size: 4.2rem;
       font-weight: 800;
-      font-variant-numeric: tabular-nums;
       letter-spacing: -2px;
-      color: var(--text-main);
+      color: var(--slate-dark);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
 
-    .timer-tag {
+    .radar-mode-tag {
+      font-family: var(--font-mono);
       font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    /* Progress bar */
-    .progress-track {
+      font-weight: 800;
+      color: #92400E;
       background: #FEF3C7;
-      height: 8px;
-      border-radius: 4px;
+      border: 1px solid #FDE68A;
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Progress Radar Track */
+    .progress-track-cyber {
+      background: #FEF3C7;
+      height: 9px;
+      border-radius: 5px;
       overflow: hidden;
-      margin: 8px 0;
+      margin: 10px 0;
+      border: 1px solid #FDE68A;
     }
 
-    .progress-fill {
+    .progress-fill-laser {
       height: 100%;
-      background: var(--yellow-gradient);
-      border-radius: 4px;
+      background: var(--yellow-cyber-grad);
+      border-radius: 5px;
       transition: width 0.4s ease;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
     }
 
-    /* Footer */
+    /* Footer Telemetry */
     footer {
       border-top: 1px solid var(--border-subtle);
-      padding: 1.25rem 2rem;
+      padding: 1.4rem 2.2rem;
       display: flex;
       justify-content: space-between;
-      color: var(--text-dim);
+      color: var(--slate-muted);
       font-size: 0.85rem;
+      font-family: var(--font-mono);
       background: #FFFFFF;
       margin-top: auto;
+      z-index: 10;
     }
 
-    @media (max-width: 900px) {
-      .dashboard-layout { grid-template-columns: 1fr; }
-      header { flex-direction: column; gap: 1rem; }
-      .nav-pill-box { overflow-x: auto; width: 100%; }
+    @media (max-width: 950px) {
+      .cockpit-split { grid-template-columns: 1fr; }
+      header { flex-direction: column; gap: 1.2rem; }
+      .nav-hud-rack { overflow-x: auto; width: 100%; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Ambient Light Follower -->
+  <div id="ambientGlowFollower"></div>
+
   <!-- Confetti Layer -->
   <canvas id="confettiCanvas"></canvas>
 
-  <!-- Header -->
+  <!-- Top Navigation HUD -->
   <header>
-    <div class="brand">
-      <div class="avatar-wrapper">
-        <div class="avatar-badge">SM</div>
-        <div class="pulse-dot"></div>
+    <div class="brand-hud">
+      <div class="brand-icon-hex">
+        SM
+        <div class="status-orb-live"></div>
       </div>
-      <div class="brand-details">
-        <h1>Shubhi Mathur <span class="verified-icon">✓</span></h1>
-        <div class="creator-sub">AuraLife Command Center • White & Gold Edition</div>
+      <div class="brand-telemetry">
+        <h1>Shubhi Mathur <span class="hud-tag">NODE // 01</span></h1>
+        <div class="sub">AuraLife OS • Quantum Productivity Cockpit</div>
       </div>
     </div>
 
-    <!-- Navigation Tabs -->
-    <div class="nav-pill-box">
-      <button class="nav-btn active" onclick="switchTab('dashboard')"><span>📊</span> Cockpit</button>
-      <button class="nav-btn" onclick="switchTab('tasks')"><span>📋</span> Tasks</button>
-      <button class="nav-btn" onclick="switchTab('habits')"><span>⚡</span> Habits</button>
-      <button class="nav-btn" onclick="switchTab('finances')"><span>💰</span> Finances</button>
-      <button class="nav-btn" onclick="switchTab('focus')"><span>⏳</span> Focus</button>
-      <button class="nav-btn" onclick="switchTab('notes')"><span>📓</span> Notes</button>
-      <button class="nav-btn" onclick="switchTab('export')"><span>📤</span> Export</button>
+    <!-- Navigation HUD Tabs -->
+    <div class="nav-hud-rack">
+      <button class="nav-hud-btn active" onclick="switchTab('dashboard')"><span>📊</span> Cockpit</button>
+      <button class="nav-hud-btn" onclick="switchTab('tasks')"><span>📋</span> Tasks</button>
+      <button class="nav-hud-btn" onclick="switchTab('habits')"><span>⚡</span> Habits</button>
+      <button class="nav-hud-btn" onclick="switchTab('finances')"><span>💰</span> Finances</button>
+      <button class="nav-hud-btn" onclick="switchTab('focus')"><span>⏳</span> Focus</button>
+      <button class="nav-hud-btn" onclick="switchTab('notes')"><span>📓</span> Vault</button>
+      <button class="nav-hud-btn" onclick="switchTab('export')"><span>📤</span> Export</button>
     </div>
 
-    <div class="header-right">
-      <div class="clock-badge" id="liveClock">13:50:00</div>
+    <div class="header-telemetry">
+      <div class="hud-ping-badge">⚡ 12ms [ONLINE]</div>
+      <div class="clock-stream" id="liveClock">13:50:00</div>
     </div>
   </header>
 
@@ -647,81 +802,87 @@
 
     <!-- TAB 1: COCKPIT OVERVIEW -->
     <div id="tab-dashboard" class="tab-content active">
-      <div class="hero-cockpit">
-        <div class="hero-intro">
-          <h2>Welcome to Your Command Center, Shubhi!</h2>
-          <p id="heroQuote">"Consistency is the architecture of mastery. Every micro-action builds your momentum."</p>
+      <div class="hero-hologram">
+        <div class="intro">
+          <h2>Welcome back, Shubhi Mathur! <span style="font-size:1.4rem;">✨</span></h2>
+          <p id="heroQuote">"System optimal. Small daily disciplines repeated consistently engineer exponential momentum."</p>
         </div>
-        <div class="score-meter-card">
-          <div class="score-dial">
-            <svg width="68" height="68" viewBox="0 0 68 68">
-              <circle cx="34" cy="34" r="28" stroke="#FEF3C7" stroke-width="6" fill="none" />
-              <circle id="scoreRing" cx="34" cy="34" r="28" stroke="var(--yellow-primary)" stroke-width="6" fill="none"
-                      stroke-dasharray="176" stroke-dashoffset="70" stroke-linecap="round" />
+        <div class="score-hologram-card">
+          <div class="score-dial-tech">
+            <svg width="72" height="72" viewBox="0 0 72 72">
+              <circle cx="36" cy="36" r="30" stroke="#FEF3C7" stroke-width="7" fill="none" />
+              <circle id="scoreRing" cx="36" cy="36" r="30" stroke="url(#scoreGrad)" stroke-width="7" fill="none"
+                      stroke-dasharray="188" stroke-dashoffset="65" stroke-linecap="round" />
+              <defs>
+                <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#F59E0B" />
+                  <stop offset="100%" stop-color="#FBBF24" />
+                </linearGradient>
+              </defs>
             </svg>
-            <div class="score-dial-val" id="scoreVal">--</div>
+            <div class="val" id="scoreVal">--</div>
           </div>
           <div>
-            <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-dim); font-weight:700;">Performance Score</div>
-            <div style="font-size:1.05rem; font-weight:800; color:var(--text-main);" id="scoreTier">Productive Maestro</div>
+            <div class="hud-tag" style="margin-bottom:4px;">EFFICIENCY TELEMETRY</div>
+            <div style="font-size:1.1rem; font-weight:800; color:var(--slate-dark);" id="scoreTier">Productive Maestro</div>
           </div>
         </div>
       </div>
 
-      <!-- KPI Grid -->
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-top">
-            <span class="kpi-label">Task Velocity</span>
-            <span class="kpi-icon">📋</span>
+      <!-- KPI Deck -->
+      <div class="kpi-deck">
+        <div class="cyber-card">
+          <div class="top-row">
+            <span class="mono-label">[TASK_VELOCITY]</span>
+            <span style="font-size:1.25rem;">📋</span>
           </div>
-          <div class="kpi-val" id="kpiTasksDone">--/--</div>
-          <div class="kpi-sub" id="kpiTaskRate">--% completion rate</div>
+          <div class="val" id="kpiTasksDone">--/--</div>
+          <div class="sub-tech" id="kpiTaskRate">--% completion index</div>
         </div>
 
-        <div class="kpi-card">
-          <div class="kpi-top">
-            <span class="kpi-label">Habits Today</span>
-            <span class="kpi-icon">⚡</span>
+        <div class="cyber-card">
+          <div class="top-row">
+            <span class="mono-label">[HABIT_MOMENTUM]</span>
+            <span style="font-size:1.25rem;">⚡</span>
           </div>
-          <div class="kpi-val" id="kpiHabitsDone">--/--</div>
-          <div class="kpi-sub" id="kpiTopStreak">Top streak: -- days 🔥</div>
+          <div class="val" id="kpiHabitsDone">--/--</div>
+          <div class="sub-tech" id="kpiTopStreak">Top streak: -- days 🔥</div>
         </div>
 
-        <div class="kpi-card">
-          <div class="kpi-top">
-            <span class="kpi-label">Budget Runway</span>
-            <span class="kpi-icon">💰</span>
+        <div class="cyber-card">
+          <div class="top-row">
+            <span class="mono-label">[FINANCIAL_RUNWAY]</span>
+            <span style="font-size:1.25rem;">💰</span>
           </div>
-          <div class="kpi-val" id="kpiBudgetLeft">₹--</div>
-          <div class="kpi-sub" id="kpiBudgetSpent">₹-- spent this month</div>
+          <div class="val" id="kpiBudgetLeft">₹--</div>
+          <div class="sub-tech" id="kpiBudgetSpent">₹-- spent this cycle</div>
         </div>
 
-        <div class="kpi-card">
-          <div class="kpi-top">
-            <span class="kpi-label">Deep Focus Today</span>
-            <span class="kpi-icon">🎯</span>
+        <div class="cyber-card">
+          <div class="top-row">
+            <span class="mono-label">[DEEP_FOCUS]</span>
+            <span style="font-size:1.25rem;">🎯</span>
           </div>
-          <div class="kpi-val" id="kpiFocusToday">50 min</div>
-          <div class="kpi-sub">Target: 150m daily goal</div>
+          <div class="val" id="kpiFocusToday">50 min</div>
+          <div class="sub-tech">Goal: 150m daily sprint</div>
         </div>
       </div>
 
-      <!-- Two-Column Layout -->
-      <div class="dashboard-layout">
-        <div class="glass-card">
-          <div class="card-header">
-            <h3><span>📈</span> 7-Day Momentum & Consistency</h3>
-            <span style="font-size:0.8rem; color:var(--text-dim);">Points earned per day</span>
+      <!-- Cockpit Split -->
+      <div class="cockpit-split">
+        <div class="tech-panel">
+          <div class="panel-header">
+            <h3><span>📈</span> 7-Day Velocity & Point Stream</h3>
+            <span class="hud-tag">POINTS // CHRONO</span>
           </div>
           <canvas id="velocityCanvas" style="width:100%; height:200px;"></canvas>
         </div>
 
-        <div class="glass-card">
-          <div class="card-header">
-            <h3><span>💳</span> Expense Category Share</h3>
+        <div class="tech-panel">
+          <div class="panel-header">
+            <h3><span>💳</span> Resource Allocation Share</h3>
           </div>
-          <div id="expenseShareContainer" style="display:flex; flex-direction:column; gap:12px;">
+          <div id="expenseShareContainer" style="display:flex; flex-direction:column; gap:14px; margin-top:0.4rem;">
             <!-- Rendered by JS -->
           </div>
         </div>
@@ -730,28 +891,28 @@
 
     <!-- TAB 2: TASKS -->
     <div id="tab-tasks" class="tab-content">
-      <div class="glass-card">
-        <div class="card-header">
+      <div class="tech-panel">
+        <div class="panel-header">
           <h3><span>📋</span> Action Matrix & Tasks</h3>
-          <span style="font-size:0.85rem; color:var(--text-dim);" id="taskCounterBadge">-- items</span>
+          <span class="hud-tag" id="taskCounterBadge">-- ITEMS ACTIVE</span>
         </div>
 
-        <div class="input-row">
-          <input type="text" id="taskInputTitle" class="glow-input" placeholder="What will you conquer next?" style="flex:2;">
-          <input type="text" id="taskInputDesc" class="glow-input" placeholder="Notes (optional)" style="flex:1.2;">
-          <select id="taskInputCat" class="glow-select">
+        <div class="hud-input-row">
+          <input type="text" id="taskInputTitle" class="cyber-input" placeholder="Enter objective or high-leverage task..." style="flex:2;">
+          <input type="text" id="taskInputDesc" class="cyber-input" placeholder="Context notes (optional)" style="flex:1.2;">
+          <select id="taskInputCat" class="cyber-select">
             <option value="Project">Project</option>
             <option value="Study">Study</option>
             <option value="Work">Work</option>
             <option value="Health">Health</option>
             <option value="General">General</option>
           </select>
-          <select id="taskInputPri" class="glow-select">
-            <option value="High">High Priority</option>
-            <option value="Medium" selected>Medium Priority</option>
-            <option value="Low">Low Priority</option>
+          <select id="taskInputPri" class="cyber-select">
+            <option value="High">Priority: High</option>
+            <option value="Medium" selected>Priority: Medium</option>
+            <option value="Low">Priority: Low</option>
           </select>
-          <button class="btn-glow" onclick="addTask()">+ Add Task</button>
+          <button class="btn-laser" onclick="addTask()">+ Deploy Task</button>
         </div>
 
         <div id="taskListWrapper">
@@ -762,49 +923,49 @@
 
     <!-- TAB 3: HABITS -->
     <div id="tab-habits" class="tab-content">
-      <div class="glass-card" style="margin-bottom:1.5rem;">
-        <div class="card-header">
-          <h3><span>⚡</span> Daily Consistency Engine</h3>
+      <div class="tech-panel" style="margin-bottom:1.6rem;">
+        <div class="panel-header">
+          <h3><span>⚡</span> Daily Discipline & Streak Engine</h3>
         </div>
-        <div class="input-row">
-          <input type="text" id="habitInputName" class="glow-input" placeholder="New habit (e.g. Read 20 pages, 30m Coding, Meditation)" style="flex:2;">
-          <select id="habitInputCat" class="glow-select">
+        <div class="hud-input-row">
+          <input type="text" id="habitInputName" class="cyber-input" placeholder="Target recurring habit (e.g. 45m Algorithms, 5km Run, Deep Meditation)..." style="flex:2;">
+          <select id="habitInputCat" class="cyber-select">
             <option value="Coding">Coding</option>
             <option value="Reading">Reading</option>
             <option value="Wellness">Wellness</option>
             <option value="Fitness">Fitness</option>
             <option value="Focus">Focus</option>
           </select>
-          <button class="btn-glow" onclick="addHabit()">+ Track Habit</button>
+          <button class="btn-laser" onclick="addHabit()">+ Initialize Habit</button>
         </div>
       </div>
 
-      <div class="habit-grid" id="habitGridWrapper">
+      <div class="habit-cyber-grid" id="habitGridWrapper">
         <!-- Dynamically populated -->
       </div>
     </div>
 
     <!-- TAB 4: FINANCES -->
     <div id="tab-finances" class="tab-content">
-      <div class="glass-card" style="margin-bottom:1.5rem;">
-        <div class="card-header">
-          <h3><span>💰</span> Personal Budget & Expense Radar</h3>
+      <div class="tech-panel" style="margin-bottom:1.6rem;">
+        <div class="panel-header">
+          <h3><span>💰</span> Capital Radar & Expense Telemetry</h3>
         </div>
 
-        <div style="margin-bottom:1.5rem;">
-          <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:4px;">
-            <span>Monthly Budget Utilization</span>
-            <span id="budgetPctLabel" style="font-weight:700; color:var(--yellow-deep);">--%</span>
+        <div style="margin-bottom:1.6rem;">
+          <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:5px;">
+            <span style="font-family:var(--font-mono); font-weight:700;">MONTHLY BUDGET ALLOCATION</span>
+            <span id="budgetPctLabel" style="font-family:var(--font-mono); font-weight:800; color:var(--yellow-laser);">--%</span>
           </div>
-          <div class="progress-track">
-            <div class="progress-fill" id="budgetTrackFill" style="width:0%;"></div>
+          <div class="progress-track-cyber">
+            <div class="progress-fill-laser" id="budgetTrackFill" style="width:0%;"></div>
           </div>
         </div>
 
-        <div class="input-row">
-          <input type="text" id="expInputTitle" class="glow-input" placeholder="Expense description (e.g. Cloud server, Books, Coffee)" style="flex:2;">
-          <input type="number" id="expInputAmt" class="glow-input" placeholder="Amount (₹)" style="width:130px;">
-          <select id="expInputCat" class="glow-select">
+        <div class="hud-input-row">
+          <input type="text" id="expInputTitle" class="cyber-input" placeholder="Expense description (e.g. AWS Cloud, Research Books)" style="flex:2;">
+          <input type="number" id="expInputAmt" class="cyber-input" placeholder="Amount (₹)" style="width:140px;">
+          <select id="expInputCat" class="cyber-select">
             <option value="Tech">Tech</option>
             <option value="Food">Food</option>
             <option value="Books">Books</option>
@@ -812,18 +973,18 @@
             <option value="Travel">Travel</option>
             <option value="Other">Other</option>
           </select>
-          <input type="text" id="expInputNotes" class="glow-input" placeholder="Notes" style="flex:1;">
-          <button class="btn-glow" onclick="addExpense()">+ Log Expense</button>
+          <input type="text" id="expInputNotes" class="cyber-input" placeholder="Telemetry tags" style="flex:1;">
+          <button class="btn-laser" onclick="addExpense()">+ Record Expense</button>
         </div>
 
-        <table style="width:100%; border-collapse:collapse; margin-top:1rem;">
+        <table style="width:100%; border-collapse:collapse; margin-top:1.2rem;">
           <thead>
-            <tr style="text-align:left; color:var(--text-muted); font-size:0.8rem; border-bottom:1px solid var(--border-subtle);">
-              <th style="padding:10px;">Date</th>
-              <th style="padding:10px;">Description</th>
-              <th style="padding:10px;">Category</th>
-              <th style="padding:10px;">Amount</th>
-              <th style="padding:10px;">Action</th>
+            <tr style="text-align:left; color:var(--slate-muted); font-size:0.8rem; border-bottom:1.5px solid var(--border-subtle); font-family:var(--font-mono);">
+              <th style="padding:12px;">TIMESTAMP</th>
+              <th style="padding:12px;">DESCRIPTOR</th>
+              <th style="padding:12px;">CLASS</th>
+              <th style="padding:12px;">OUTFLOW</th>
+              <th style="padding:12px;">ACTION</th>
             </tr>
           </thead>
           <tbody id="expenseTableBody">
@@ -835,16 +996,17 @@
 
     <!-- TAB 5: POMODORO FOCUS -->
     <div id="tab-focus" class="tab-content">
-      <div class="glass-card pomo-shell">
-        <h3 style="font-size:1.3rem;">⏳ Deep Work Sprint</h3>
-        <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Immerse in uninterrupted high-leverage creation.</p>
+      <div class="tech-panel radar-pomo-box">
+        <h3 style="font-size:1.4rem; color:var(--slate-dark); font-weight:800;">⏳ Holographic Focus Sprint</h3>
+        <p style="color:var(--slate-muted); font-size:0.92rem; margin-top:4px;">Cognitive immersion mode enabled. Zero distractions.</p>
 
-        <div class="timer-ring-center">
-          <svg width="270" height="270" viewBox="0 0 270 270">
-            <circle cx="135" cy="135" r="115" stroke="#FEF3C7" stroke-width="12" fill="none" />
-            <circle id="pomoRing" cx="135" cy="135" r="115" stroke="url(#pomoGrad)" stroke-width="12" fill="none"
-                    stroke-dasharray="722" stroke-dashoffset="0" stroke-linecap="round"
-                    transform="rotate(-90 135 135)" style="transition: stroke-dashoffset 1s linear;" />
+        <div class="radar-ring-wrapper">
+          <div class="radar-sweep-disk"></div>
+          <svg width="280" height="280" viewBox="0 0 280 280">
+            <circle cx="140" cy="140" r="118" stroke="#FEF3C7" stroke-width="12" fill="none" />
+            <circle id="pomoRing" cx="140" cy="140" r="118" stroke="url(#pomoGrad)" stroke-width="12" fill="none"
+                    stroke-dasharray="741" stroke-dashoffset="0" stroke-linecap="round"
+                    transform="rotate(-90 140 140)" style="transition: stroke-dashoffset 1s linear; filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.4));" />
             <defs>
               <linearGradient id="pomoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#F59E0B" />
@@ -852,43 +1014,43 @@
               </linearGradient>
             </defs>
           </svg>
-          <div class="timer-digits">
-            <div class="timer-clock" id="pomoDisplay">25:00</div>
-            <div class="timer-tag" id="pomoModeTag">Focus Sprint</div>
+          <div class="radar-digits">
+            <div class="radar-clock-text" id="pomoDisplay">25:00</div>
+            <div class="radar-mode-tag" id="pomoModeTag">Focus Window</div>
           </div>
         </div>
 
-        <div style="display:flex; justify-content:center; gap:12px;">
-          <button class="btn-glow" id="pomoToggleBtn" onclick="togglePomodoro()">▶ Start Sprint</button>
-          <button class="btn-subtle" onclick="resetPomodoro()">⟲ Reset</button>
-          <button class="btn-subtle" onclick="switchPomoMode()">⇄ Mode</button>
+        <div style="display:flex; justify-content:center; gap:14px;">
+          <button class="btn-laser" id="pomoToggleBtn" onclick="togglePomodoro()">▶ Ignite Sprint</button>
+          <button class="btn-ghost-tech" onclick="resetPomodoro()">⟲ Reset</button>
+          <button class="btn-ghost-tech" onclick="switchPomoMode()">⇄ Mode</button>
         </div>
 
-        <div style="font-size:0.85rem; color:var(--text-dim); margin-top:1.5rem;">
-          Completed Today: <strong style="color:var(--yellow-deep);" id="pomoSprintsDone">2</strong> sessions (50 min deep work)
+        <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--slate-muted); margin-top:1.8rem;">
+          Cycles Completed Today: <strong style="color:var(--yellow-laser);" id="pomoSprintsDone">2</strong> (50 min deep work logged)
         </div>
       </div>
     </div>
 
     <!-- TAB 6: NOTES -->
     <div id="tab-notes" class="tab-content">
-      <div class="glass-card">
-        <div class="card-header">
-          <h3><span>📓</span> Ideas & Knowledge Vault</h3>
+      <div class="tech-panel">
+        <div class="panel-header">
+          <h3><span>📓</span> Quantum Knowledge Vault</h3>
         </div>
-        <div class="input-row">
-          <input type="text" id="noteInputTitle" class="glow-input" placeholder="Note Title (e.g. System Design Insight)" style="flex:2;">
-          <select id="noteInputCat" class="glow-select">
+        <div class="hud-input-row">
+          <input type="text" id="noteInputTitle" class="cyber-input" placeholder="Title (e.g. Distributed Consensus, Python Architecture)" style="flex:2;">
+          <select id="noteInputCat" class="cyber-select">
             <option value="Ideas">Ideas</option>
             <option value="Study">Study</option>
             <option value="Tech">Tech</option>
             <option value="Wellness">Wellness</option>
           </select>
-          <input type="text" id="noteInputBody" class="glow-input" placeholder="Takeaway or takeaway bullets..." style="flex:3;">
-          <button class="btn-glow" onclick="addNote()">+ Save Note</button>
+          <input type="text" id="noteInputBody" class="cyber-input" placeholder="Synthesized knowledge bullets..." style="flex:3;">
+          <button class="btn-laser" onclick="addNote()">+ Store Vault Note</button>
         </div>
 
-        <div id="notesContainer" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
+        <div id="notesContainer" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.35rem;">
           <!-- Dynamically populated -->
         </div>
       </div>
@@ -896,17 +1058,17 @@
 
     <!-- TAB 7: EXPORT -->
     <div id="tab-export" class="tab-content">
-      <div class="glass-card" style="max-width:650px; margin:0 auto; text-align:center;">
-        <h3 style="font-size:1.3rem; margin-bottom:0.5rem;"><span>📤</span> Instant Data Backup & Export</h3>
-        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">
-          Export all your records cleanly into CSV files and a complete JSON snapshot stored directly in your local <code>exports/</code> directory.
+      <div class="tech-panel" style="max-width:680px; margin:0 auto; text-align:center;">
+        <h3 style="font-size:1.35rem; margin-bottom:0.5rem; color:var(--slate-dark); font-weight:800;"><span>📤</span> Telemetry Snapshot & Data Dump</h3>
+        <p style="color:var(--slate-muted); font-size:0.92rem; margin-bottom:1.6rem;">
+          Generate deterministic CSV tables and cryptographic JSON state snapshots saved directly in your local <code>exports/</code> directory.
         </p>
 
-        <button class="btn-glow" onclick="triggerExportNow()" style="padding:14px 28px; font-size:1rem;">
-          ⚡ Export Full Snapshot Now
+        <button class="btn-laser" onclick="triggerExportNow()" style="padding:15px 32px; font-size:1.02rem;">
+          ⚡ Export Full System Snapshot
         </button>
 
-        <div id="exportStatusAlert" style="display:none; margin-top:1.5rem; text-align:left; background:#FEF3C7; border:1px solid #FDE68A; border-radius:12px; padding:1.25rem; font-size:0.9rem; color:#B45309;">
+        <div id="exportStatusAlert" style="display:none; margin-top:1.6rem; text-align:left; background:#FEF3C7; border:1px solid #FDE68A; border-radius:14px; padding:1.35rem; font-size:0.9rem; color:#92400E; font-family:var(--font-mono);">
           <!-- Result details -->
         </div>
       </div>
@@ -914,13 +1076,21 @@
 
   </main>
 
-  <!-- Footer -->
+  <!-- Footer Telemetry -->
   <footer>
-    <div>AuraLife Command Center • Handcrafted for <strong>Shubhi Mathur</strong></div>
-    <div>White & Yellow Edition • Pure Python Architecture</div>
+    <div>AuraLife OS • Lead Architect: <strong>Shubhi Mathur</strong></div>
+    <div>LATENCY: 12MS // MEM: OPTIMAL // PURE PYTHON ARCHITECTURE</div>
   </footer>
 
   <script>
+    // Mouse Glow Follower
+    window.addEventListener('mousemove', (e) => {
+      const follower = document.getElementById('ambientGlowFollower');
+      if (follower) {
+        follower.style.transform = `translate(${e.clientX - 250}px, ${e.clientY - 250}px)`;
+      }
+    });
+
     // Offline / Local State Fallback
     const INITIAL_STATE = {
       profile: {
@@ -956,15 +1126,15 @@
         { id: "n3", title: "Daily Focus Mantra", category: "Wellness", content: "Precision, consistency, and relentless curiosity create extraordinary outcomes." }
       ],
       metrics: {
-        productivity_score: 65,
+        productivity_score: 68,
         activity_7d: [
-          { label: "Mon", total_points: 20 },
-          { label: "Tue", total_points: 35 },
-          { label: "Wed", total_points: 25 },
-          { label: "Thu", total_points: 50 },
-          { label: "Fri", total_points: 60 },
-          { label: "Sat", total_points: 75 },
-          { label: "Sun", total_points: 85 }
+          { label: "Mon", total_points: 30 },
+          { label: "Tue", total_points: 45 },
+          { label: "Wed", total_points: 35 },
+          { label: "Thu", total_points: 60 },
+          { label: "Fri", total_points: 70 },
+          { label: "Sat", total_points: 85 },
+          { label: "Sun", total_points: 95 }
         ]
       }
     };
@@ -981,7 +1151,7 @@
     // Tab Navigation
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-hud-btn').forEach(el => el.classList.remove('active'));
       
       const target = document.getElementById(`tab-${tabId}`);
       if (target) target.classList.add('active');
@@ -989,7 +1159,7 @@
       if (event && event.currentTarget) {
         event.currentTarget.classList.add('active');
       }
-      
+      playTechClick();
       if (tabId === 'dashboard') {
         setTimeout(drawVelocityChart, 50);
       }
@@ -1006,7 +1176,6 @@
           throw new Error('Not 200');
         }
       } catch (err) {
-        // Fallback to localStorage or default
         const local = localStorage.getItem('auralife_store_v2');
         appState = local ? JSON.parse(local) : INITIAL_STATE;
         isServerMode = false;
@@ -1029,7 +1198,7 @@
       const completedTasks = tasks.filter(t => t.completed).length;
       const taskPct = tasks.length ? Math.round((completedTasks / tasks.length) * 100) : 0;
       document.getElementById('kpiTasksDone').innerText = `${completedTasks}/${tasks.length}`;
-      document.getElementById('kpiTaskRate').innerText = `${taskPct}% completion rate`;
+      document.getElementById('kpiTaskRate').innerText = `${taskPct}% completion index`;
 
       const checkedHabits = habits.filter(h => h.checked_today).length;
       const topStreak = Math.max(0, ...habits.map(h => h.streak || 0));
@@ -1047,7 +1216,7 @@
       // Productivity Score Ring
       const score = metrics?.productivity_score || Math.min(100, Math.round((taskPct * 0.5) + ((checkedHabits / (habits.length || 1)) * 35) + (topStreak * 3)));
       document.getElementById('scoreVal').innerText = score;
-      const circumference = 2 * Math.PI * 28; // ~176
+      const circumference = 2 * Math.PI * 30; // ~188
       const offset = circumference - (score / 100) * circumference;
       document.getElementById('scoreRing').style.strokeDashoffset = offset;
 
@@ -1062,12 +1231,12 @@
         const pct = Math.round((amt / (totalSpent || 1)) * 100);
         catBox.innerHTML += `
           <div>
-            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:4px;">
-              <span style="font-weight:600; color:var(--text-main);">${cat}</span>
-              <span style="color:var(--text-muted); font-weight:600;">₹${amt.toLocaleString()} (${pct}%)</span>
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:5px; font-family:var(--font-mono);">
+              <span style="font-weight:700; color:var(--slate-dark);">${cat}</span>
+              <span style="color:var(--slate-muted); font-weight:700;">₹${amt.toLocaleString()} [${pct}%]</span>
             </div>
-            <div class="progress-track" style="margin:0;">
-              <div class="progress-fill" style="width:${pct}%;"></div>
+            <div class="progress-track-cyber" style="margin:0;">
+              <div class="progress-fill-laser" style="width:${pct}%;"></div>
             </div>
           </div>
         `;
@@ -1078,24 +1247,24 @@
       document.getElementById('budgetTrackFill').style.width = `${budgetPct}%`;
 
       // Tasks List
-      document.getElementById('taskCounterBadge').innerText = `${tasks.length} items`;
+      document.getElementById('taskCounterBadge').innerText = `${tasks.length} ITEMS ACTIVE`;
       const taskBox = document.getElementById('taskListWrapper');
       taskBox.innerHTML = '';
       tasks.forEach(t => {
         const div = document.createElement('div');
-        div.className = 'task-item';
+        div.className = 'task-cyber-item';
         div.innerHTML = `
-          <div class="task-left">
-            <input type="checkbox" class="custom-check" ${t.completed ? 'checked' : ''} onchange="toggleTask('${t.id}')">
-            <div class="task-title-group ${t.completed ? 'completed' : ''}">
-              <div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">
-                <span class="badge badge-${t.priority}">${t.priority}</span>
-                <span style="font-size:0.75rem; color:var(--text-dim);">${t.category}</span>
+          <div class="task-left-hud">
+            <input type="checkbox" class="neon-check" ${t.completed ? 'checked' : ''} onchange="toggleTask('${t.id}')">
+            <div class="task-label-hud ${t.completed ? 'done' : ''}">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:3px;">
+                <span class="badge-cyber badge-${t.priority}">PRIORITY: ${t.priority}</span>
+                <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--slate-dim);">${t.category}</span>
               </div>
               <h4>${escapeHtml(t.title)}</h4>
             </div>
           </div>
-          <button class="btn-subtle" style="color:#DC2626; border:none; padding:4px 8px; font-weight:bold;" onclick="deleteTask('${t.id}')">✕</button>
+          <button class="btn-ghost-tech" style="color:#DC2626; border:none; padding:5px 10px; font-weight:800;" onclick="deleteTask('${t.id}')">✕</button>
         `;
         taskBox.appendChild(div);
       });
@@ -1105,21 +1274,21 @@
       habitBox.innerHTML = '';
       habits.forEach(h => {
         const div = document.createElement('div');
-        div.className = `habit-card ${h.checked_today ? 'checked' : ''}`;
+        div.className = `habit-cyber-card ${h.checked_today ? 'checked' : ''}`;
         div.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:flex-start;">
             <div>
-              <span class="badge" style="background:#FEF3C7; color:#B45309; border:1px solid #FDE68A;">${h.category}</span>
-              <h4 style="font-size:1.05rem; margin-top:8px;">${escapeHtml(h.name)}</h4>
+              <span class="hud-tag">${h.category}</span>
+              <h4 style="font-size:1.1rem; margin-top:8px; font-weight:800; color:var(--slate-dark);">${escapeHtml(h.name)}</h4>
             </div>
-            <div class="habit-streak-badge">
+            <div class="streak-radar-tag">
               <span>${h.streak || 0}</span>
               <span>🔥</span>
             </div>
           </div>
-          <button class="btn-glow" style="${h.checked_today ? 'background:#F59E0B; color:#0F172A; box-shadow:0 3px 12px rgba(245,158,11,0.35);' : 'background:#F1F5F9; color:#475569; box-shadow:none;'}"
+          <button class="btn-laser" style="${h.checked_today ? 'background:#F59E0B; box-shadow:0 0 20px rgba(245,158,11,0.5);' : 'background:#F1F5F9; color:var(--slate-muted); box-shadow:none;'}"
                   onclick="toggleHabit('${h.id}')">
-            ${h.checked_today ? '✔ Completed Today' : '○ Check In Today'}
+            ${h.checked_today ? '✔ COMPLETED TODAY' : '○ LOG DISCIPLINE'}
           </button>
         `;
         habitBox.appendChild(div);
@@ -1132,11 +1301,11 @@
         const tr = document.createElement('tr');
         tr.style.borderBottom = '1px solid #F1F5F9';
         tr.innerHTML = `
-          <td style="padding:10px; color:var(--text-dim); font-size:0.85rem;">${e.date || 'Today'}</td>
-          <td style="padding:10px; font-weight:600; color:var(--text-main);">${escapeHtml(e.title)}</td>
-          <td style="padding:10px;"><span class="badge" style="background:#FEF3C7; color:#B45309; border:1px solid #FDE68A;">${e.category}</span></td>
-          <td style="padding:10px; color:#DC2626; font-weight:700;">₹${parseFloat(e.amount).toFixed(2)}</td>
-          <td style="padding:10px;"><button class="btn-subtle" style="padding:2px 8px; font-size:0.75rem; color:#DC2626;" onclick="deleteExpense('${e.id}')">Delete</button></td>
+          <td style="padding:12px; color:var(--slate-muted); font-size:0.85rem; font-family:var(--font-mono);">${e.date || 'Today'}</td>
+          <td style="padding:12px; font-weight:700; color:var(--slate-dark);">${escapeHtml(e.title)}</td>
+          <td style="padding:12px;"><span class="hud-tag">${e.category}</span></td>
+          <td style="padding:12px; color:#DC2626; font-weight:800; font-family:var(--font-mono);">₹${parseFloat(e.amount).toFixed(2)}</td>
+          <td style="padding:12px;"><button class="btn-ghost-tech" style="padding:3px 9px; font-size:0.75rem; color:#DC2626;" onclick="deleteExpense('${e.id}')">Delete</button></td>
         `;
         expBody.appendChild(tr);
       });
@@ -1146,14 +1315,14 @@
       notesBox.innerHTML = '';
       notes.forEach(n => {
         const div = document.createElement('div');
-        div.className = 'glass-card';
-        div.style.padding = '1.25rem';
+        div.className = 'cyber-card';
+        div.style.padding = '1.35rem';
         div.innerHTML = `
           <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <span class="badge" style="background:#FEF3C7; color:#B45309; border:1px solid #FDE68A;">${n.category}</span>
+            <span class="hud-tag">${n.category}</span>
           </div>
-          <h4 style="font-size:1.05rem; margin-bottom:6px; color:var(--text-main);">${escapeHtml(n.title)}</h4>
-          <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.5;">${escapeHtml(n.content)}</p>
+          <h4 style="font-size:1.1rem; margin-bottom:6px; font-weight:800; color:var(--slate-dark);">${escapeHtml(n.title)}</h4>
+          <p style="color:var(--slate-muted); font-size:0.9rem; line-height:1.55;">${escapeHtml(n.content)}</p>
         `;
         notesBox.appendChild(div);
       });
@@ -1171,13 +1340,23 @@
       ctx.clearRect(0, 0, w, h);
       const data = appState.metrics?.activity_7d || [
         { label: "Mon", total_points: 30 },
-        { label: "Tue", total_points: 40 },
+        { label: "Tue", total_points: 45 },
         { label: "Wed", total_points: 35 },
-        { label: "Thu", total_points: 55 },
-        { label: "Fri", total_points: 60 },
-        { label: "Sat", total_points: 80 },
-        { label: "Sun", total_points: 90 }
+        { label: "Thu", total_points: 60 },
+        { label: "Fri", total_points: 70 },
+        { label: "Sat", total_points: 85 },
+        { label: "Sun", total_points: 95 }
       ];
+
+      // Holographic grid lines
+      ctx.strokeStyle = '#F1F5F9';
+      ctx.lineWidth = 1;
+      for (let y = 30; y < h - 35; y += 35) {
+        ctx.beginPath();
+        ctx.moveTo(10, y);
+        ctx.lineTo(w - 10, y);
+        ctx.stroke();
+      }
 
       const barWidth = Math.min(38, (w / data.length) - 16);
       const maxPts = Math.max(...data.map(d => d.total_points), 40);
@@ -1187,25 +1366,28 @@
         const barHeight = Math.max(12, (d.total_points / maxPts) * (h - 60));
         const y = h - 35 - barHeight;
 
-        // Warm Yellow Gradient
+        // Cyber Laser Gradient
         const grad = ctx.createLinearGradient(0, y, 0, y + barHeight);
         grad.addColorStop(0, '#F59E0B');
         grad.addColorStop(1, '#FCD34D');
 
         ctx.fillStyle = grad;
+        ctx.shadowColor = 'rgba(245, 158, 11, 0.35)';
+        ctx.shadowBlur = 10;
         ctx.beginPath();
         ctx.roundRect(x, y, barWidth, barHeight, [8, 8, 2, 2]);
         ctx.fill();
+        ctx.shadowBlur = 0; // reset
 
         // Label
         ctx.fillStyle = '#64748B';
-        ctx.font = '600 12px sans-serif';
+        ctx.font = '700 11px Space Mono, monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(d.label, x + barWidth / 2, h - 12);
+        ctx.fillText(d.label.toUpperCase(), x + barWidth / 2, h - 12);
 
         // Value
         ctx.fillStyle = '#0F172A';
-        ctx.font = 'bold 11px sans-serif';
+        ctx.font = 'bold 11px Space Mono, monospace';
         ctx.fillText(d.total_points, x + barWidth / 2, y - 6);
       });
     }
@@ -1233,6 +1415,7 @@
 
       document.getElementById('taskInputTitle').value = '';
       document.getElementById('taskInputDesc').value = '';
+      playSciFiChime();
       shootConfetti();
     }
 
@@ -1250,7 +1433,7 @@
         saveLocal();
         render();
       }
-      playBellTone();
+      playSciFiChime();
       shootConfetti();
     }
 
@@ -1267,6 +1450,7 @@
         saveLocal();
         render();
       }
+      playTechClick();
     }
 
     async function addHabit() {
@@ -1288,6 +1472,7 @@
       }
 
       document.getElementById('habitInputName').value = '';
+      playSciFiChime();
       shootConfetti();
     }
 
@@ -1308,7 +1493,7 @@
         saveLocal();
         render();
       }
-      playBellTone();
+      playSciFiChime();
       shootConfetti();
     }
 
@@ -1335,6 +1520,7 @@
       document.getElementById('expInputTitle').value = '';
       document.getElementById('expInputAmt').value = '';
       document.getElementById('expInputNotes').value = '';
+      playTechClick();
     }
 
     async function deleteExpense(id) {
@@ -1350,6 +1536,7 @@
         saveLocal();
         render();
       }
+      playTechClick();
     }
 
     async function addNote() {
@@ -1373,6 +1560,7 @@
 
       document.getElementById('noteInputTitle').value = '';
       document.getElementById('noteInputBody').value = '';
+      playTechClick();
     }
 
     // Pomodoro Timer
@@ -1387,7 +1575,7 @@
       const m = Math.floor(pomoSeconds / 60);
       const s = pomoSeconds % 60;
       document.getElementById('pomoDisplay').innerText = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-      const circumference = 2 * Math.PI * 115; // 722
+      const circumference = 2 * Math.PI * 118; // ~741
       const offset = circumference * (1 - (pomoSeconds / pomoInitial));
       document.getElementById('pomoRing').style.strokeDashoffset = offset;
     }
@@ -1398,9 +1586,11 @@
         clearInterval(pomoInterval);
         pomoRunning = false;
         btn.innerText = '▶ Resume Sprint';
+        playTechClick();
       } else {
         pomoRunning = true;
-        btn.innerText = '⏸ Pause Sprint';
+        btn.innerText = '⏸ Suspend Sprint';
+        playSciFiChime();
         pomoInterval = setInterval(() => {
           if (pomoSeconds > 0) {
             pomoSeconds--;
@@ -1408,13 +1598,13 @@
           } else {
             clearInterval(pomoInterval);
             pomoRunning = false;
-            btn.innerText = '▶ Start Sprint';
-            playBellTone();
+            btn.innerText = '▶ Ignite Sprint';
+            playSciFiChime();
             shootConfetti();
             if (pomoMode === 'work') {
               completedSprints++;
               document.getElementById('pomoSprintsDone').innerText = completedSprints;
-              alert("🎉 Extraordinary focus sprint completed, Shubhi Mathur! Time for a refreshing break.");
+              alert("🚀 Quantum focus sprint completed, Shubhi Mathur! Cognitive refresh window initiated.");
             }
           }
         }, 1000);
@@ -1425,30 +1615,50 @@
       clearInterval(pomoInterval);
       pomoRunning = false;
       pomoSeconds = pomoInitial;
-      document.getElementById('pomoToggleBtn').innerText = '▶ Start Sprint';
+      document.getElementById('pomoToggleBtn').innerText = '▶ Ignite Sprint';
       updatePomoVisual();
+      playTechClick();
     }
 
     function switchPomoMode() {
       clearInterval(pomoInterval);
       pomoRunning = false;
-      document.getElementById('pomoToggleBtn').innerText = '▶ Start';
+      document.getElementById('pomoToggleBtn').innerText = '▶ Ignite';
       if (pomoMode === 'work') {
         pomoMode = 'break';
         pomoInitial = 5 * 60;
         pomoSeconds = pomoInitial;
-        document.getElementById('pomoModeTag').innerText = 'Break Window';
+        document.getElementById('pomoModeTag').innerText = 'Refresh Window';
       } else {
         pomoMode = 'work';
         pomoInitial = 25 * 60;
         pomoSeconds = pomoInitial;
-        document.getElementById('pomoModeTag').innerText = 'Focus Sprint';
+        document.getElementById('pomoModeTag').innerText = 'Focus Window';
       }
       updatePomoVisual();
+      playTechClick();
     }
 
-    // Sound Synthesizer (Web Audio API)
-    function playBellTone() {
+    // Sci-Fi Tech Audio Synthesizer (Web Audio API)
+    function playSciFiChime() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+        osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.35);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.6);
+      } catch (e) {}
+    }
+
+    function playTechClick() {
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx.createOscillator();
@@ -1456,16 +1666,16 @@
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
-        osc.frequency.exponentialRampToValueAtTime(1046.5, ctx.currentTime + 0.3); // C6
-        gain.gain.setValueAtTime(0.2, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.7);
+        osc.frequency.setValueAtTime(1200, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
         osc.start();
-        osc.stop(ctx.currentTime + 0.7);
+        osc.stop(ctx.currentTime + 0.05);
       } catch (e) {}
     }
 
-    // Confetti System (Yellow, Gold, Champagne, White)
+    // Confetti Laser Physics
     function shootConfetti() {
       const canvas = document.getElementById('confettiCanvas');
       if (!canvas) return;
@@ -1474,18 +1684,18 @@
       canvas.height = window.innerHeight;
 
       const particles = [];
-      const colors = ['#F59E0B', '#FBBF24', '#FCD34D', '#FEF08A', '#EAB308', '#FFFFFF', '#CBD5E1', '#D97706'];
+      const colors = ['#F59E0B', '#FBBF24', '#FCD34D', '#FEF08A', '#EAB308', '#FFFFFF', '#090D16', '#D97706'];
 
-      for (let i = 0; i < 60; i++) {
+      for (let i = 0; i < 65; i++) {
         particles.push({
           x: window.innerWidth / 2,
-          y: window.innerHeight * 0.4,
-          vx: (Math.random() - 0.5) * 16,
-          vy: (Math.random() - 0.7) * 18,
+          y: window.innerHeight * 0.45,
+          vx: (Math.random() - 0.5) * 18,
+          vy: (Math.random() - 0.75) * 20,
           size: Math.random() * 8 + 4,
           color: colors[Math.floor(Math.random() * colors.length)],
           rotation: Math.random() * 360,
-          rotSpeed: (Math.random() - 0.5) * 10,
+          rotSpeed: (Math.random() - 0.5) * 12,
           opacity: 1
         });
       }
@@ -1497,9 +1707,9 @@
         particles.forEach(p => {
           p.x += p.vx;
           p.y += p.vy;
-          p.vy += 0.4; // gravity
+          p.vy += 0.45; // gravity
           p.rotation += p.rotSpeed;
-          p.opacity -= 0.015;
+          p.opacity -= 0.016;
 
           if (p.opacity > 0) {
             active = true;
@@ -1530,8 +1740,8 @@
         const box = document.getElementById('exportStatusAlert');
         box.style.display = 'block';
         box.innerHTML = `
-          <strong>Snapshot Successfully Exported!</strong><br>
-          Saved to local <code>exports/</code> directory:<br>
+          <strong>[TELEMETRY_SNAPSHOT_GENERATED]</strong><br>
+          Saved locally in <code>exports/</code> directory:<br>
           • <code>${data.tasks_csv}</code><br>
           • <code>${data.expenses_csv}</code><br>
           • <code>${data.backup_json}</code>
@@ -1544,8 +1754,9 @@
         a.click();
         const box = document.getElementById('exportStatusAlert');
         box.style.display = 'block';
-        box.innerHTML = `<strong>Backup Download Triggered!</strong> Saved as JSON snapshot file.`;
+        box.innerHTML = `<strong>[LOCAL_SNAPSHOT_DOWNLOADED]</strong> State persisted as JSON dump.`;
       }
+      playSciFiChime();
       shootConfetti();
     }
 
