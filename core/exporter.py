@@ -16,10 +16,17 @@ class DataExporter:
     def __init__(self, db, export_dir: Optional[str] = None):
         self.db = db
         if export_dir is None:
-            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            export_dir = os.path.join(base_dir, "exports")
+            if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+                export_dir = os.path.join("/tmp", "auralife_exports")
+            else:
+                base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+                export_dir = os.path.join(base_dir, "exports")
         self.export_dir = export_dir
-        os.makedirs(self.export_dir, exist_ok=True)
+        try:
+            os.makedirs(self.export_dir, exist_ok=True)
+        except OSError:
+            self.export_dir = os.path.join("/tmp", "auralife_exports")
+            os.makedirs(self.export_dir, exist_ok=True)
 
     def export_tasks_csv(self) -> str:
         filename = f"auralife_tasks_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"

@@ -16,16 +16,27 @@ class DatabaseManager:
 
     def __init__(self, data_dir: Optional[str] = None):
         if data_dir is None:
-            # Default to data folder inside project directory
-            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            data_dir = os.path.join(base_dir, "data")
+            # Check for serverless / read-only environment like Vercel or AWS Lambda
+            if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+                data_dir = os.path.join("/tmp", "auralife_data")
+            else:
+                base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+                data_dir = os.path.join(base_dir, "data")
         
         self.data_dir = data_dir
         self.db_file = os.path.join(self.data_dir, "auralife_store.json")
         self.backup_dir = os.path.join(self.data_dir, "backups")
         
-        os.makedirs(self.data_dir, exist_ok=True)
-        os.makedirs(self.backup_dir, exist_ok=True)
+        try:
+            os.makedirs(self.data_dir, exist_ok=True)
+            os.makedirs(self.backup_dir, exist_ok=True)
+        except OSError:
+            # Fallback to /tmp if write permission denied in current filesystem
+            self.data_dir = os.path.join("/tmp", "auralife_data")
+            self.db_file = os.path.join(self.data_dir, "auralife_store.json")
+            self.backup_dir = os.path.join(self.data_dir, "backups")
+            os.makedirs(self.data_dir, exist_ok=True)
+            os.makedirs(self.backup_dir, exist_ok=True)
 
         self.profile: UserProfile = UserProfile()
         self.tasks: List[Task] = []
@@ -37,6 +48,16 @@ class DatabaseManager:
 
     def load(self):
         """Loads data from disk or seeds default initial data if none exists."""
+        if not os.path.exists(self.db_file):
+            # If in /tmp (e.g. Vercel), copy existing data store from repo if available
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            repo_db = os.path.join(base_dir, "data", "auralife_store.json")
+            if os.path.exists(repo_db) and os.path.abspath(repo_db) != os.path.abspath(self.db_file):
+                try:
+                    shutil.copy2(repo_db, self.db_file)
+                except Exception:
+                    pass
+
         if not os.path.exists(self.db_file):
             self.seed_defaults()
             self.save()
