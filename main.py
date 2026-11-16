@@ -55,11 +55,16 @@ def create_wsgi_app():
             start_response("200 OK", headers)
             return [b""]
 
+        # Normalize API route regardless of whether Vercel stripped /api prefix
+        api_path = path if path.startswith("/api") else f"/api{path}"
+
         # GET Requests
         if method == "GET":
             # Serve Cyber White & Yellow UI
             if path in ["/", "/index.html", "/dashboard.html"]:
-                html_path = os.path.join(BASE_DIR, "web", "index.html")
+                html_path = os.path.join(BASE_DIR, "index.html")
+                if not os.path.exists(html_path):
+                    html_path = os.path.join(BASE_DIR, "web", "index.html")
                 if not os.path.exists(html_path):
                     html_path = os.path.join(BASE_DIR, "dashboard.html")
 
@@ -75,7 +80,7 @@ def create_wsgi_app():
                     return [content]
 
             # Serve JSON State Data & Analytics
-            elif path == "/api/data":
+            elif api_path == "/api/data":
                 data = {
                     "profile": db.profile.to_dict(),
                     "tasks": [t.to_dict() for t in db.tasks],
@@ -122,7 +127,7 @@ def create_wsgi_app():
                     except Exception:
                         payload = {}
 
-            if path == "/api/task/add":
+            if api_path == "/api/task/add":
                 task = Task(
                     title=payload.get("title", "New Task"),
                     description=payload.get("description", ""),
@@ -133,19 +138,19 @@ def create_wsgi_app():
                 db.add_task(task)
                 resp = {"success": True, "task": task.to_dict()}
 
-            elif path == "/api/task/toggle":
+            elif api_path == "/api/task/toggle":
                 task = db.toggle_task(payload.get("id"))
                 resp = {"success": True, "task": task.to_dict()} if task else {"success": False, "error": "Not found"}
 
-            elif path == "/api/task/delete":
+            elif api_path == "/api/task/delete":
                 ok = db.delete_task(payload.get("id"))
                 resp = {"success": ok}
 
-            elif path == "/api/habit/toggle":
+            elif api_path == "/api/habit/toggle":
                 res = db.toggle_habit_today(payload.get("id"))
                 resp = {"success": True, "checked_today": res}
 
-            elif path == "/api/habit/add":
+            elif api_path == "/api/habit/add":
                 habit = Habit(
                     name=payload.get("name", "New Habit"),
                     category=payload.get("category", "Wellness"),
@@ -153,7 +158,7 @@ def create_wsgi_app():
                 db.add_habit(habit)
                 resp = {"success": True, "habit": habit.to_dict()}
 
-            elif path == "/api/expense/add":
+            elif api_path == "/api/expense/add":
                 exp = Expense(
                     title=payload.get("title", "Expense"),
                     amount=float(payload.get("amount", 0)),
@@ -163,11 +168,11 @@ def create_wsgi_app():
                 db.add_expense(exp)
                 resp = {"success": True, "expense": exp.to_dict()}
 
-            elif path == "/api/expense/delete":
+            elif api_path == "/api/expense/delete":
                 ok = db.delete_expense(payload.get("id"))
                 resp = {"success": ok}
 
-            elif path == "/api/note/add":
+            elif api_path == "/api/note/add":
                 note = Note(
                     title=payload.get("title", "Quick Note"),
                     category=payload.get("category", "Ideas"),
@@ -176,7 +181,7 @@ def create_wsgi_app():
                 db.add_note(note)
                 resp = {"success": True, "note": note.to_dict()}
 
-            elif path == "/api/export":
+            elif api_path == "/api/export":
                 t_csv = exporter.export_tasks_csv()
                 e_csv = exporter.export_expenses_csv()
                 b_json = exporter.export_full_json()
